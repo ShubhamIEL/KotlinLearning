@@ -20,7 +20,7 @@ android {
             versionName = "1.0"
             defaultConfig {
                 applicationId = "com.example.myapplication"
-                minSdk = 24
+                minSdk = 29
                 targetSdk = 36
                 versionCode = 1
                 versionName = "1.0"
@@ -41,12 +41,17 @@ android {
                 sourceCompatibility = JavaVersion.VERSION_11
                 targetCompatibility = JavaVersion.VERSION_11
             }
+            //noinspection WrongGradleMethod
             kotlinOptions {
                 jvmTarget = "11"
             }
         }
 
         dependencies {
+            // ViewModel
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+// LiveData
+            implementation(libs.androidx.lifecycle.livedata.ktx)
             implementation("androidx.car.app:app-automotive:1.7.0")
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.appcompat)
