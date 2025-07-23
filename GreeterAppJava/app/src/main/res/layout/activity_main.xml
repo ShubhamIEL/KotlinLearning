@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!--
+      LinearLayout is a simple layout that arranges its children
+      either vertically or horizontally.
+    -->
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"> <!-- Add some padding around the edges -->
+
+        <!--
+          This is the input field where the user will type their name.
+          - android:id is a unique identifier so we can find this View in our Java code.
+          - android:hint is the placeholder text shown when the field is empty.
+        -->
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/> <!-- Space below the EditText -->
+
+        <!--
+          This is the button the user will click.
+          - android:id lets us find it in Java.
+          - android:text is the text displayed on the button.
+        -->
+        <Button
+            android:id="@+id/greetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Greet Me"/>
+
+        <!--
+          This is the label that will display our greeting message.
+          - It's empty at first because our Java code will set its text later.
+          - We give it some space above (marginTop) and make the text bigger.
+        -->
+        <TextView
+            android:id="@+id/greetingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textSize="22sp"
+            tools:text="Hello, Mentor!" /> <!-- tools:text shows preview text only in the editor -->
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
