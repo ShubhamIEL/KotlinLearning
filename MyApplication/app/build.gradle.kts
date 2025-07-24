@@ -7,60 +7,58 @@ android {
     namespace = "com.example.myapplication"
     compileSdk = 36
 
+    defaultConfig {
+        applicationId = "com.example.myapplication"
+        minSdk = 29 // Using 29 as required by the car libraries
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
 
-    android {
-        namespace = "com.example.myapplication"
-        compileSdk = 36
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-        defaultConfig {
-            applicationId = "com.example.myapplication"
-            minSdk = 24
-            targetSdk = 36
-            versionCode = 1
-            versionName = "1.0"
-            defaultConfig {
-                applicationId = "com.example.myapplication"
-                minSdk = 29
-                targetSdk = 36
-                versionCode = 1
-                versionName = "1.0"
-
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-            }
-
-            buildTypes {
-                release {
-                    isMinifyEnabled = false
-                    proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        "proguard-rules.pro"
-                    )
-                }
-            }
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
-            }
-            //noinspection WrongGradleMethod
-            kotlinOptions {
-                jvmTarget = "11"
-            }
-        }
-
-        dependencies {
-            // ViewModel
-            implementation(libs.androidx.lifecycle.viewmodel.ktx)
-// LiveData
-            implementation(libs.androidx.lifecycle.livedata.ktx)
-            implementation("androidx.car.app:app-automotive:1.7.0")
-            implementation(libs.androidx.core.ktx)
-            implementation(libs.androidx.appcompat)
-            implementation(libs.material)
-            implementation(libs.androidx.activity)
-            implementation(libs.androidx.constraintlayout)
-            testImplementation(libs.junit)
-            androidTestImplementation(libs.androidx.junit)
-            androidTestImplementation(libs.androidx.espresso.core)
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    // Core and UI Libraries
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
+    // ViewModel and LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Automotive Libraries
+    implementation(libs.androidx.app.automotive)
+    implementation("androidx.car.app:app:1.7.0") // Use the latest stable    compileOnly("com.google.android.automotive:automotive:1.2.0")
+
+    // Testing Libraries
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
