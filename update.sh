@@ -1,13 +1,27 @@
 #!/bin/bash
 
-# Add all changes
+# Check if a commit message was provided
+if [ -z "$1" ]; then
+  echo "🛑 Error: You must provide a commit message."
+  echo "Usage: sh update.sh \"Your descriptive message\""
+  exit 1
+fi
+
+# Add, commit, and push
 git add .
+git commit -m "$1"
+git push
 
-# Commit with a generic daily update message
-# The $(date) part adds the current date and time to the message
-git commit -m "chore: Daily update $(date)"
+echo "✅ Successfully committed and pushed to GitHub!"
 
-# Push the changes to GitHub
-git push origin main
 
-echo "✅ Project updated and pushed to GitHub!"
+
+
+
+
+
+
+
+
+
+
