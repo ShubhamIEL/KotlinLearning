@@ -54,6 +54,9 @@ class MainActivity:AppCompatActivity(){
             val name = binding.nameInput.text.toString()
             profileViewModel.updateUSer(name)
         }
+        profileViewModel.userName.observe(this){
+            name -> binding.userName.text = name
+        }
         profileViewModel.welcomeMsg.observe(this) { message ->
             binding.userName.text = message
         }
