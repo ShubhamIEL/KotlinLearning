@@ -10,7 +10,7 @@ class ProfileRepository {
 //        return "!! ALEX(FROM REPO) !!"
         return withContext(Dispatchers.IO){
             delay(2000)
-            "!! ALEX(FROM IO thread) !!"
+            "ALEX (from Repository/IO thread)"
         }
     }
 }

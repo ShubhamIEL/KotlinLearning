@@ -15,16 +15,46 @@ class ProfileViewModel : ViewModel() {
     val welcomeMsg: LiveData<String> = _welcomeMsg
 
     private val repository = ProfileRepository()
+
+    private val _history = MutableLiveData<List<String>>(emptyList())
+    val history : LiveData<List<String>> = _history
     init{
-        fetchUpdatedUser()
+        val initialUser ="User NAME"
+        _userName.value =initialUser
+        addHistoryItem(initialUser)
+        viewModelScope.launch {
+            delay(2000)
+            fetchUpdatedUser()
+        }
+       // fetchUpdatedUser()
     }
     fun fetchInitialUSer(){
-        _userName.value = "initial"
+        val initialUser = "initial"
+        _userName.value = initialUser
+        addHistoryItem(initialUser)
     }
+
+    private fun addHistoryItem(item: String) {
+        val currentList = _history.value ?: emptyList()
+        val newList =currentList.toMutableList().apply {
+            add(0, item)
+        }
+        _history.value = newList
+    }
+
     fun fetchUpdatedUser(){
         viewModelScope.launch {
             val updatedName = repository.fetchUpdatedUserName()
             _userName.value = updatedName
+
+            addHistoryItem(updatedName)
+        }
+    }
+    fun updateUserWithDelay(name: String) {
+        viewModelScope.launch {
+            delay(2000)
+            _userName.value = name
+            addHistoryItem(name)
         }
     }
 
