@@ -7,16 +7,18 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel @Inject constructor(private val repository: ProfileRepository
+) : ViewModel() {
     private val _userName = MutableLiveData<String>()
     val userName: LiveData<String> = _userName
 
     private val _welcomeMsg = MutableLiveData<String>()
     val welcomeMsg: LiveData<String> = _welcomeMsg
 
-    private val repository = ProfileRepository()
+   // private val repository = ProfileRepository()
 
     private val _history = MutableLiveData<List<String>>(emptyList())
     val history : LiveData<List<String>> = _history
