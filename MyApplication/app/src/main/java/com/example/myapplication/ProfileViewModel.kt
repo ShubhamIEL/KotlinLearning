@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class ProfileViewModel : ViewModel() {
     private val _userName = MutableLiveData<String>()
     val userName: LiveData<String> = _userName
@@ -44,10 +46,16 @@ class ProfileViewModel : ViewModel() {
 
     fun fetchUpdatedUser(){
         viewModelScope.launch {
-            val updatedName = repository.fetchUpdatedUserName()
-            _userName.value = updatedName
+            repository.fetchUpdatedUserNameStream()
+                .collect{ updatedName->
+                    _userName.value =updatedName
+                    addHistoryItem(updatedName)
+                }
 
-            addHistoryItem(updatedName)
+//            val updatedName = repository.fetchUpdatedUserName()
+//            _userName.value = updatedName
+//
+//            addHistoryItem(updatedName)
         }
     }
     fun updateUserWithDelay(name: String) {
