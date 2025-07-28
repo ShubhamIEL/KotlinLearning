@@ -58,7 +58,11 @@ dependencies {
     implementation("androidx.car.app:app:1.7.0") // Use the latest stable    compileOnly("com.google.android.automotive:automotive:1.2.0")
 
     // Testing Libraries
-    testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+
 }

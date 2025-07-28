@@ -15,26 +15,44 @@ class ProfileViewModel : ViewModel() {
     val welcomeMsg: LiveData<String> = _welcomeMsg
 
     private val repository = ProfileRepository()
-    init {
-//        (userName as MutableLiveData).value ="USER NAME"
-        //_userName.value ="!USER NAME!"
-        updateUSerAfterDelay()
+    init{
+        fetchUpdatedUser()
     }
-    fun updateUSerAfterDelay(){
-        viewModelScope.launch{
-//            delay(2000)
-//            _userName.value ="ALEX (updated)"
-//            (userName as MutableLiveData).value = "ALEX (updated)"
+    fun fetchInitialUSer(){
+        _userName.value = "initial"
+    }
+    fun fetchUpdatedUser(){
+        viewModelScope.launch {
             val updatedName = repository.fetchUpdatedUserName()
             _userName.value = updatedName
         }
     }
-    fun updateUSer(name:String){
-        val formattedMsg = getWelcomeMessage(name)
-//        (welcomeMsg as MutableLiveData).value = formattedMsg
-        _welcomeMsg.value =formattedMsg
+
+    fun updateUserWithName(name: String) {
+        _userName.value = name
     }
-    private fun getWelcomeMessage(name: String):String{
-        return  "Welcome , $name!"
-    }
+
 }
+//    init {
+////        (userName as MutableLiveData).value ="USER NAME"
+//        //_userName.value ="!USER NAME!"
+//        updateUSerAfterDelay()
+//    }
+//    fun updateUSerAfterDelay(){
+//        viewModelScope.launch{
+////            delay(2000)
+////            _userName.value ="ALEX (updated)"
+////            (userName as MutableLiveData).value = "ALEX (updated)"
+//            val updatedName = repository.fetchUpdatedUserName()
+//            _userName.value = updatedName
+//        }
+//    }
+//    fun updateUSer(name:String){
+//        val formattedMsg = getWelcomeMessage(name)
+////        (welcomeMsg as MutableLiveData).value = formattedMsg
+//        _welcomeMsg.value =formattedMsg
+//    }
+//    private fun getWelcomeMessage(name: String):String{
+//        return  "Welcome , $name!"
+//    }
+//}
