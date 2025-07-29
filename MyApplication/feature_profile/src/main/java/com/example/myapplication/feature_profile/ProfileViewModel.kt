@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.feature_profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: ProfileRepository
@@ -73,26 +74,3 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     }
 
 }
-//    init {
-////        (userName as MutableLiveData).value ="USER NAME"
-//        //_userName.value ="!USER NAME!"
-//        updateUSerAfterDelay()
-//    }
-//    fun updateUSerAfterDelay(){
-//        viewModelScope.launch{
-////            delay(2000)
-////            _userName.value ="ALEX (updated)"
-////            (userName as MutableLiveData).value = "ALEX (updated)"
-//            val updatedName = repository.fetchUpdatedUserName()
-//            _userName.value = updatedName
-//        }
-//    }
-//    fun updateUSer(name:String){
-//        val formattedMsg = getWelcomeMessage(name)
-////        (welcomeMsg as MutableLiveData).value = formattedMsg
-//        _welcomeMsg.value =formattedMsg
-//    }
-//    private fun getWelcomeMessage(name: String):String{
-//        return  "Welcome , $name!"
-//    }
-//}
