@@ -4,7 +4,7 @@ plugins {
 }
 android {
     namespace 'com.example.myapplication.shared'
-    compileSdkVersion "36.0"
+    compileSdk = "android-36"
 
     defaultConfig {
         minSdkVersion 28
