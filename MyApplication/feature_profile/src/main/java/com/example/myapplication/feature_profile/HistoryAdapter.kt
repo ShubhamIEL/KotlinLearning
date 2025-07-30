@@ -1,10 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.feature_profile
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.databinding.ItemHistoryBinding
+import com.example.myapplication.feature_profile.databinding.ItemHistoryBinding
+
 
 // 1. Inherits from ListAdapter, which is efficient and uses DiffUtil automatically.
 class HistoryAdapter : ListAdapter<String, HistoryAdapter.HistoryViewHolder>(HistoryDiffCallback()) {
