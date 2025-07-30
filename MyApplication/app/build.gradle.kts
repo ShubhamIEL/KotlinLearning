@@ -83,6 +83,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
+    alias(libs.plugins.jetbrains.kotlin.compose)
+
 }
 
 android {
@@ -109,10 +111,25 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 }
 
 dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.tooling.preview)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+
+// For collecting StateFlow in a lifecycle-aware manner
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.0")
     implementation(project(":feature_profile"))
     implementation(project(":core"))
     implementation(libs.material)
