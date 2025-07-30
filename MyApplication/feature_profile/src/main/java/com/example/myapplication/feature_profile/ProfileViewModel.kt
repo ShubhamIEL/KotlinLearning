@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collect
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: ProfileRepository ) : ViewModel() {
 
-    private  val _userName = MutableStateFlow("initial")
+    private  val _userName = MutableStateFlow("User NAME")
     val userName : StateFlow<String> = _userName.asStateFlow()
     //    private val _userName = MutableLiveData<String>()
     //    val userName: LiveData<String> = _userName
@@ -28,10 +28,14 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
 
     private val _history = MutableLiveData<List<String>>(emptyList())
     val history : LiveData<List<String>> = _history
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
     init{
-        val initialUser ="User NAME"
-        _userName.value =initialUser
-        addHistoryItem(initialUser)
+//        val initialUser ="User NAME"
+//        _userName.value =initialUser
+//        addHistoryItem(initialUser)
+        addHistoryItem(_userName.value)
         viewModelScope.launch {
             delay(2000)
             fetchUpdatedUser()
@@ -54,10 +58,15 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
 
     fun fetchUpdatedUser(){
         viewModelScope.launch {
+
+            _isLoading.value =true
+
             repository.fetchUpdatedUserNameStream()
                 .collect{ updatedName->
                     _userName.value =updatedName
                     addHistoryItem(updatedName)
+
+                    _isLoading.value = false
                 }
 
 //            val updatedName = repository.fetchUpdatedUserName()
@@ -68,9 +77,11 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     }
     fun updateUserWithDelay(name: String) {
         viewModelScope.launch {
+            _isLoading.value = true
             delay(2000)
             _userName.value = name
             addHistoryItem(name)
+            _isLoading.value = false
         }
     }
 
