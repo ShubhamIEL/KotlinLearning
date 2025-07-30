@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyFirstHMIApp</string>
+    <string name="initial_user_name">USER NAME</string>
+    <string name="updated_user_name">ALEX (from Repository/IO thread)</string>
+    <string name="welcome_message">Welcome, %1$s!</string>
+    <string name="profile_name_label">User Name</string>
+</resources>
