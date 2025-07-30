@@ -15,5 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Application" // Or whatever your project's name is
 include(":app")
-include(":core")
-include(":feature_profile")
