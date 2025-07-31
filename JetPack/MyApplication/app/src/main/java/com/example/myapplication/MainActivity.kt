@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,16 +27,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.feature_profile.HistoryAdapter
+//import com.example.myapplication.feature_profile.HistoryAdapter
 import com.example.myapplication.feature_profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.nio.file.WatchEvent
+import androidx.compose.runtime.livedata.observeAsState
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
-    private lateinit var historyAdapter: HistoryAdapter
+  //  private lateinit var historyAdapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,19 +59,23 @@ class MainActivity : AppCompatActivity() {
                 Spacer(modifier = Modifier.height(16.dp))
                 SimpleCounter()
             }
+            binding.historyComposeView.setContent {
+                val history by profileViewModel.history.observeAsState(initial = emptyList())
+                HistoryList(historyItems = history)
+            }
         }
 
         // Setup RecyclerView
-        historyAdapter = HistoryAdapter()
-        binding.historyRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = historyAdapter
-        }
+//        historyAdapter = HistoryAdapter() //use lazy column to replace this
+//        binding.historyRecyclerView.apply {
+//            layoutManager = LinearLayoutManager(this@MainActivity)
+//            adapter = historyAdapter
+//        }
 
-        // Observe history LiveData
-        profileViewModel.history.observe(this) { historyList ->
-            historyAdapter.submitList(historyList)
-        }
+        // Observe history LiveData //Lazy column replace this
+//        profileViewModel.history.observe(this) { historyList ->
+//            historyAdapter.submitList(historyList)
+//        }
 
         // Setup Button Listener
         binding.updateNameButton.setOnClickListener {
@@ -96,5 +106,27 @@ fun SimpleCounter() {
 
     Button(onClick = { count++ }) { // 2. Modify the state on click
         Text("You have clicked me $count times") // 3. Read the state to display it
+    }
+}
+
+@Composable
+fun HistoryItem(itemText: String){
+    Card (
+        modifier = Modifier.fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+    ){
+        Text(
+            text = itemText,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
+@Composable
+fun HistoryList(historyItems: List<String>){
+    LazyColumn {
+        items(historyItems){
+            item->HistoryItem(itemText = item)
+        }
     }
 }

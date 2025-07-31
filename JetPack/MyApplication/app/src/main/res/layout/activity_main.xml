@@ -55,16 +55,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_input" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/history_recycler_view"
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/history_recycler_view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/update_name_button"-->
+<!--            tools:listitem="@layout/item_history" />-->
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/history_compose_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/update_name_button"
-            tools:listitem="@layout/item_history" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
