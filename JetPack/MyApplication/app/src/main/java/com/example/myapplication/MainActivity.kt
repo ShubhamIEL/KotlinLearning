@@ -4,9 +4,20 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -34,7 +45,14 @@ class MainActivity : AppCompatActivity() {
             val userName by profileViewModel.userName.collectAsStateWithLifecycle()
 
             // Call our new Composable function
-            Greeting(name = userName)
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Greeting(name = userName)
+                Spacer(modifier = Modifier.height(16.dp))
+                SimpleCounter()
+            }
         }
 
         // Setup RecyclerView
@@ -68,4 +86,15 @@ fun Greeting(name: String) {
         text = "Hello, $name!",
         fontSize = 24.sp
     )
+}
+@Composable
+fun SimpleCounter() {
+    // 1. Create a state variable for the count.
+    //    'remember' saves the state across recompositions.
+    //    'by' delegate syntax makes it easy to get/set the value.
+    var count by remember { mutableStateOf (0) }
+
+    Button(onClick = { count++ }) { // 2. Modify the state on click
+        Text("You have clicked me $count times") // 3. Read the state to display it
+    }
 }
